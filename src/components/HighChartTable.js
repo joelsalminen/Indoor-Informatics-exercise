@@ -7,6 +7,7 @@ class HighChartTable extends Component{
       token: ""
     }
     this.tokenInputChangeHandler = this.tokenInputChangeHandler.bind(this);
+    this.fetchButtonClickHandler = this.fetchButtonClickHandler.bind(this);
   }
 
   ComponentDidMount(){
@@ -17,11 +18,16 @@ class HighChartTable extends Component{
   	this.setState({token: evt.target.value})
   }
 
+  fetchButtonClickHandler(evt){
+  	
+  }
+
 	render(){
 		return(
 			<div>
 				<p>Token:</p>
 				<input onChange={this.tokenInputChangeHandler}></input>
+				<button onClick={this.fetchButtonClickHandler}>Hae</button>
 			</div>
 			);
 	}
