@@ -4,24 +4,24 @@ class HighChartTable extends Component{
 	constructor(props){
     super(props);
     this.state = {
-      
+      token: ""
     }
-    this.tokenChangeHandler = this.tokenChangeHandler.bind(this);
+    this.tokenInputChangeHandler = this.tokenInputChangeHandler.bind(this);
   }
 
   ComponentDidMount(){
 
   }
 
-  tokenChangeHandler(){
-  	console.log("token change");
+  tokenInputChangeHandler(evt){
+  	this.setState({token: evt.target.value})
   }
 
 	render(){
 		return(
 			<div>
 				<p>Token:</p>
-				<input onChange={this.tokenChangeHandler}></input>
+				<input onChange={this.tokenInputChangeHandler}></input>
 			</div>
 			);
 	}
