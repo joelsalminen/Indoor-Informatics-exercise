@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import $ from 'jquery'
 
 class HighChartTable extends Component{
 	constructor(props){
@@ -19,7 +20,17 @@ class HighChartTable extends Component{
   }
 
   fetchButtonClickHandler(evt){
-  	
+  	$.ajax({
+
+  		headers: {
+  			'Authorization': 'Bearer ' + this.state.token
+  		},
+  		url: 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/equipment',
+  		method: 'get', 
+  		success: (res) => {console.log(res)},
+  		error: (err) => {console.log(err)}
+  	});
+  	console.log("hi");
   }
 
 	render(){
