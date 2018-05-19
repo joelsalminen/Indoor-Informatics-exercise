@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import $ from 'jquery'
+import BicycleChart from './ChartComponents/BicycleChart'
 
 class HighChartTable extends Component{
 	constructor(props){
@@ -42,11 +43,13 @@ class HighChartTable extends Component{
   }
 
 	render(){
+
 		return(
 			<div>
 				<p>Token:</p>
 				<input onChange={this.tokenInputChangeHandler}></input>
 				<button onClick={this.fetchButtonClickHandler}>Hae</button>
+				<BicycleChart />
 			</div>
 			);
 	}
