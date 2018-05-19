@@ -6,16 +6,22 @@ class HighChartTable extends Component{
     this.state = {
       
     }
+    this.tokenChangeHandler = this.tokenChangeHandler.bind(this);
   }
 
   ComponentDidMount(){
 
   }
-  
+
+  tokenChangeHandler(){
+  	console.log("token change");
+  }
+
 	render(){
 		return(
 			<div>
-				<p>High Chart</p>
+				<p>Token:</p>
+				<input onChange={this.tokenChangeHandler}></input>
 			</div>
 			);
 	}
