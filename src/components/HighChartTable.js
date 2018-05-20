@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import $ from 'jquery'
-import BicycleChart from './ChartComponents/BicycleChart'
+import $ from 'jquery';
+import BicycleChart from './ChartComponents/BicycleChart';
+import Highcharts from 'highcharts';
+
 
 class HighChartTable extends Component{
 	constructor(props){
@@ -35,7 +37,26 @@ class HighChartTable extends Component{
   		success: (res) => {
   			this.setState({bicycleUtilization: res});
   			console.log(this.state.bicycleUtilization);
+  			let chart = new Highcharts.Chart({
+          colors: ["#7cb5ec", "#f7a35c"],
+          chart: {
+              type: 'column',
+              renderTo: 'bicyclechart'
+          },
+          title: {
+          	text: 'test'
+          },
+          series: [
+          	{
+					    name: 'Tokyo',
+					      data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+					  }, 
+
+          ]
+  			});
   		},
+
+  		
   		error: (err) => {console.log(err)}
   	});
 
@@ -49,7 +70,7 @@ class HighChartTable extends Component{
 				<p>Token:</p>
 				<input onChange={this.tokenInputChangeHandler}></input>
 				<button onClick={this.fetchButtonClickHandler}>Hae</button>
-				<BicycleChart />
+				<BicycleChart chart={this.state.chart}/>
 			</div>
 			);
 	}
@@ -58,3 +79,5 @@ class HighChartTable extends Component{
 
 
 export default HighChartTable;
+
+// Joel Salminen - joel.salminen@gmail.com
