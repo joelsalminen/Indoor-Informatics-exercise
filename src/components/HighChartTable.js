@@ -38,8 +38,12 @@ class HighChartTable extends Component{
   			this.setState({bicycleUtilization: res});
   			console.log(this.state.bicycleUtilization);
   			let bicycleData = [];
-  			this.state.bicycleUtilization.forEach((item) => {bicycleData.push(100* item.utilization)});
-
+  			let dates = [];
+  			this.state.bicycleUtilization.forEach((item) => {
+  				bicycleData.push(100* item.utilization);
+  				dates.push(item.timePart + '.4');
+  			});
+  			
   			let chart = new Highcharts.Chart({
           colors: ["#7cb5ec", "#f7a35c"],
           chart: {
@@ -53,6 +57,9 @@ class HighChartTable extends Component{
           	labels: {
           		format: '{value}%'
           	}
+          },
+          xAxis: {
+          	categories: dates
           },
           series: [
           	{
