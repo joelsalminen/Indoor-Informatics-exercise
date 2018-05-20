@@ -16,10 +16,6 @@ class HighChartTable extends Component{
     this.fetchButtonClickHandler = this.fetchButtonClickHandler.bind(this);
   }
 
-  ComponentDidMount(){
-
-  }
-
   // Input field for state: token
   tokenInputChangeHandler(evt){
   	this.setState({token: evt.target.value})
@@ -36,7 +32,7 @@ class HighChartTable extends Component{
   		method: 'get', 
   		success: (res) => {
   			this.setState({bicycleUtilization: res});
-  			console.log(this.state.bicycleUtilization);
+  			//console.log(this.state.bicycleUtilization);
   			let bicycleData = [];
   			let dates = [];
   			this.state.bicycleUtilization.forEach((item) => {
@@ -44,12 +40,15 @@ class HighChartTable extends Component{
   				dates.push(item.timePart + '.4');
   			});
   			
-  			let chart = new Highcharts.Chart({
+  			new Highcharts.Chart({
           colors: ["#7cb5ec", "#f7a35c"],
           chart: {
               type: 'line',
               renderTo: 'bicyclechart'
           },
+          title: {
+        		text: ''
+    			},
           yAxis: {
           	title: {
           		text: "Käyttöaste-%"
@@ -82,7 +81,7 @@ class HighChartTable extends Component{
 
 		return(
 			<div>
-				<p>Token:</p>
+				<label>token:</label><br/>
 				<input onChange={this.tokenInputChangeHandler}></input>
 				<button onClick={this.fetchButtonClickHandler}>Hae</button>
 				<BicycleChart chart={this.state.chart}/>
