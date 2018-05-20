@@ -32,7 +32,7 @@ class HighChartTable extends Component{
   		headers: {
   			'Authorization': 'Bearer ' + this.state.token
   		},
-  		url: 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-16T00:00:00.000000Z&endDatetime=2018-04-29T00:00:00.000000Z&groupBy=timePart,equipment_id&timePart=hour&metric=utilization&equipment_id=194',
+  		url: 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-16T00:00:00.000000Z&endDatetime=2018-04-30T00:00:00.000000Z&groupBy=timePart,equipment_id&timePart=day&metric=utilization&equipment_id=194',
   		method: 'get', 
   		success: (res) => {
   			this.setState({bicycleUtilization: res});
@@ -45,9 +45,6 @@ class HighChartTable extends Component{
           chart: {
               type: 'line',
               renderTo: 'bicyclechart'
-          },
-          title: {
-          	text: 'test'
           },
           yAxis: {
           	title: {
