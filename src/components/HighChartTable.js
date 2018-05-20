@@ -37,26 +37,37 @@ class HighChartTable extends Component{
   		success: (res) => {
   			this.setState({bicycleUtilization: res});
   			console.log(this.state.bicycleUtilization);
+  			let bicycleData = [];
+  			this.state.bicycleUtilization.forEach((item) => {bicycleData.push(100* item.utilization)});
+
   			let chart = new Highcharts.Chart({
           colors: ["#7cb5ec", "#f7a35c"],
           chart: {
-              type: 'column',
+              type: 'line',
               renderTo: 'bicyclechart'
           },
           title: {
           	text: 'test'
           },
+          yAxis: {
+          	title: {
+          		text: "Käyttöaste-%"
+          	},
+          	labels: {
+          		format: '{value}%'
+          	}
+          },
           series: [
           	{
-					    name: 'Tokyo',
-					      data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+					    name: 'Polkypyörä (pysty) käyttöaste',
+					    data: bicycleData
 					  }, 
 
           ]
   			});
   		},
 
-  		
+
   		error: (err) => {console.log(err)}
   	});
 
