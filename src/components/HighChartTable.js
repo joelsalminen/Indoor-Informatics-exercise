@@ -30,18 +30,28 @@ class HighChartTable extends Component{
   		},
   		url: 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-16T00:00:00.000000Z&endDatetime=2018-04-30T00:00:00.000000Z&groupBy=timePart,equipment_id&timePart=day&metric=utilization&equipment_id=194',
   		method: 'get', 
+
+  		// on success: set up a chart
   		success: (res) => {
   			this.setState({bicycleUtilization: res});
-  			//console.log(this.state.bicycleUtilization);
+  			
+  			// bicycle utilization data, used when creating a chart
   			let bicycleData = [];
+
+  			// date data for xAxis of the chart
   			let dates = [];
+
+
   			this.state.bicycleUtilization.forEach((item) => {
+  				// values are multiplied by 100 to get percentage value
   				bicycleData.push(100* item.utilization);
-  				dates.push(item.timePart + '.4');
+
+  				dates.push(item.timePart);
   			});
   			
+  			// create a new chart
   			new Highcharts.Chart({
-          colors: ["#7cb5ec", "#f7a35c"],
+          colors: ["#f7a35c"],
           chart: {
               type: 'line',
               renderTo: 'bicyclechart'
@@ -81,10 +91,11 @@ class HighChartTable extends Component{
 
 		return(
 			<div>
-				<label>token:</label><br/>
+
+				<br/><label>token:</label><br/>
 				<input onChange={this.tokenInputChangeHandler}></input>
 				<button onClick={this.fetchButtonClickHandler}>Hae</button>
-				<BicycleChart chart={this.state.chart}/>
+				<div id="bicyclechart"></div>
 			</div>
 			);
 	}
