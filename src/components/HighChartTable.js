@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import BicycleChart from './ChartComponents/BicycleChart';
 import Highcharts from 'highcharts';
 
 
