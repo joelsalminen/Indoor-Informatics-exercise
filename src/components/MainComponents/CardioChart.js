@@ -6,41 +6,45 @@ class CardioChart extends Component {
 	constructor(props){
 		super(props)
 
-		this.DrawChart = this.DrawChart.bind(this);
+		this.parseUtilization = this.parseUtilization;
+		this.drawChart = this.drawChart.bind(this);
 	}
 
 
+	parseUtilization(cardio){
+		console.log("hi from parse");
+	}
 
-	DrawChart(data, categories){
+	drawChart(data, categories){
 		new Highcharts.Chart({
-		          colors: ["#f7a35c"],
-		          chart: {
-		              type: 'line',
-		              renderTo: 'cardiochart'
-		          },
-		          title: {
-		        		text: ''
-		    			},
-		          yAxis: {
-		          	title: {
-		          		text: "Cardio-laitteiden käyttöaste-%"
-		          	},
-		          	labels: {
-		          		format: '{value}%'
-		          	}
-		          },
-		          xAxis: {
-          			categories: categories
-          		},
+      colors: ["#f7a35c"],
+      chart: {
+        type: 'line',
+        renderTo: 'cardiochart'
+      },
+      title: {
+    		text: ''
+			},
+      yAxis: {
+      	title: {
+      		text: "Cardio-laitteiden käyttöaste-%"
+      	},
+      	labels: {
+      		format: '{value}%'
+      	}
+      },
+      xAxis: {
+  			categories: categories
+  		},
 
-		          series: [
-		          	{
-							    name: 'Polkypyörä (pysty) käyttöaste',
-							    data: data
-							  }, 
+      series: [
+      	{
+			    name: 'Polkypyörä (pysty) käyttöaste',
+			    data: data
+			  }, 
 
-		          ]
-		  			});
+      ]
+		});
 	}
 
 
@@ -95,6 +99,8 @@ class CardioChart extends Component {
  						let cardioData = [];
  						let equipNames = [];
 
+ 						this.parseUtilization(cardio);
+
  						cardio.forEach((util)=> {
  							cardioData.push(util.utilization);
  							
@@ -105,8 +111,8 @@ class CardioChart extends Component {
  							equipNames.push(item.name);
  						});
 
- 						
- 						this.DrawChart(cardioData, equipNames);
+ 						// craw CardioChart
+ 						this.drawChart(cardioData, equipNames);
 
 
 
