@@ -3,6 +3,19 @@ import Highcharts from 'highcharts';
 import $ from 'jquery';
 
 class CardioChart extends Component {
+	constructor(props){
+		super(props)
+
+		this.DrawChart = this.DrawChart.bind(this);
+	}
+
+
+
+	DrawChart(){
+		console.log("drawchart");
+	}
+
+
 	componentDidMount(){
 		// fetch all equipment data from backend
 		const token = this.props.token;
@@ -93,7 +106,7 @@ class CardioChart extends Component {
 
 		          ]
 		  			});
-
+ 						this.DrawChart();
 
 
 
