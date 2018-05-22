@@ -47,10 +47,19 @@ class HighChartTable extends Component{
  				console.log(categories);
 
  				// base of url for Cardio util fetch
- 				let url = 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-30T00:00:00.000000Z&endDatetime=2018-05-07T00:00:00.000000Z&groupBy=timePart,category_id,equipment_id&timePart=week&metric=utilization&category_id='
- 				
+ 				let url = 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-30T00:00:00.000000Z&endDatetime=2018-05-07T00:00:00.000000Z&groupBy=timePart,category_id,equipment_id&timePart=week&metric=utilization&category_id=';
+
+ 				// adding categories in the end of url:
+ 				categories.forEach((cat)=>{
+ 					url = url + cat + ',';
+ 				});
+ 				// remove final comma to avoid errors
+ 				url = url.substring(0, url.length -1);
+
  				
 
+
+ 				
  			}),
  			error: (err => {console.log(err)})
  		});
