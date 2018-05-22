@@ -6,17 +6,25 @@ class CardioChart extends Component {
 	constructor(props){
 		super(props)
 
+		this.findCategoryIds = this.findCategoryIds.bind(this);
 		this.createUrl = this.createUrl.bind(this)
 		this.parseUtilization = this.parseUtilization.bind(this);
 		this.drawChart = this.drawChart.bind(this);
 	}
+
+
+	//
+	findCategoryIds(parent_id){
+		console.log("hi from find");
+	}
+
 
 	// creates an url that is used to fetch cardio data
 	createUrl(categories){
 		// base of url for Cardio util fetch
 		let url = 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-30T00:00:00.000000Z&endDatetime=2018-05-07T00:00:00.000000Z&groupBy=timePart,equipment_id&timePart=week&metric=utilization&category_id=';
 
-		// adding categories in the end of url:
+		// adding equipment categories in the end of url:
 		categories.forEach((cat)=>{
 			url = url + cat + ',';
 		});
@@ -46,6 +54,8 @@ class CardioChart extends Component {
 		return [data, xCategories];
 
 	}
+
+
 
 	drawChart(data, categories){
 		new Highcharts.Chart({
@@ -96,6 +106,7 @@ class CardioChart extends Component {
  				this.setState({equipment: data});
  				let categories = [];
 
+ 				this.findCategoryIds();
  				// find all category_ids that have category_id_parent === 3
  				this.state.equipment.forEach((equip)=>{
  					if(equip.equipment_category_id_parent === 3){
@@ -108,9 +119,8 @@ class CardioChart extends Component {
  					}
  				});
 
-
+ 				// get url that is used to fetch data 
  				let url = this.createUrl(categories);
- 				
 
  				// fetch cardio data
  				$.ajax({
