@@ -30,7 +30,6 @@ class HighChartTable extends Component{
  			success: ((data)=>{
  				// set equipment data to a state
  				this.setState({equipment: data});
-
  				let categories = [];
 
  				// find all category_ids that have category_id_parent === 3
@@ -54,6 +53,7 @@ class HighChartTable extends Component{
  				});
  				// remove final comma to avoid errors
  				url = url.substring(0, url.length -1);
+ 				//console.log(url);
 
  				// fetch cardio data
  				$.ajax({
@@ -63,13 +63,19 @@ class HighChartTable extends Component{
  						'Authorization': 'Bearer ' + token
  					},
  					success: ((cardio)=>{
- 						console.log(cardio);
- 						// get util data
+
+ 						// parse utilization from cardio data
  						let cardioData = [];
- 						let ids = [];
+ 						let equipNames = [];
+
  						cardio.forEach((util)=> {
  							cardioData.push(util.utilization);
- 							ids.push(util.equipment_id);
+ 							
+ 							// get equipment names, to be displayed in xAxis of cardio chart
+ 							let item = this.state.equipment.find((x)=>{
+ 								return x.id === util.equipment_id;
+ 							});
+ 							equipNames.push(item.name);
  						});
 
  						new Highcharts.Chart({
@@ -90,7 +96,7 @@ class HighChartTable extends Component{
 		          	}
 		          },
 		          xAxis: {
-          			categories: ids
+          			categories: equipNames
           		},
 
 		          series: [
@@ -156,7 +162,7 @@ class HighChartTable extends Component{
   			
   			// create a new chart
   			new Highcharts.Chart({
-          colors: ["#f7a35c"],
+          colors: ["#000080"],
           chart: {
               type: 'line',
               renderTo: 'bicyclechart'
