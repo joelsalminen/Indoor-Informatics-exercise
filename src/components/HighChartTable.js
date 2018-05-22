@@ -27,7 +27,15 @@ class HighChartTable extends Component{
  			},
  			success: ((data)=>{
  				this.setState({equipment: data});
- 				console.log(this.state.equipment);
+ 				//console.log(this.state.equipment);
+ 				let list = [];
+ 				this.state.equipment.forEach((equip)=>{
+ 					if(equip.equipment_category_id_parent === 3){
+ 						list.push(equip);
+ 					}
+
+ 				});
+ 				console.log(list);
  			}),
  			error: (err => {console.log(err)})
  		});
