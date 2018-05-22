@@ -13,9 +13,23 @@ class CardioChart extends Component {
 	}
 
 
-	//
+	// find categories basd on category_id_parent
 	findCategoryIds(parent_id){
-		console.log("hi from find");
+		let categories = [];
+
+		// find all category_ids that have category_id_parent === 3
+		this.state.equipment.forEach((equip)=>{
+			if(equip.equipment_category_id_parent === parent_id){
+
+				// only add it to the categories list if it's not already on the list
+				if (categories.includes(equip.equipment_category_id) === false){			
+					categories.push(equip.equipment_category_id);
+				}
+				
+			}
+		});
+
+		return categories;
 	}
 
 
@@ -104,20 +118,8 @@ class CardioChart extends Component {
  			success: ((data)=>{
  				// set equipment data to a state
  				this.setState({equipment: data});
- 				let categories = [];
-
- 				this.findCategoryIds();
- 				// find all category_ids that have category_id_parent === 3
- 				this.state.equipment.forEach((equip)=>{
- 					if(equip.equipment_category_id_parent === 3){
-
- 						// only add it to the categories list if it's not already there
- 						if (categories.includes(equip.equipment_category_id) === false){			
- 							categories.push(equip.equipment_category_id);
- 						}
- 						
- 					}
- 				});
+ 				let categories = this.findCategoryIds(3);
+ 				
 
  				// get url that is used to fetch data 
  				let url = this.createUrl(categories);
