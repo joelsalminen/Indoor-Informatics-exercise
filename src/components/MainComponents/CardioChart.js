@@ -11,8 +11,26 @@ class CardioChart extends Component {
 	}
 
 
+	// parses utilization data into an array and finds categories of xAxis based on equipment ids
 	parseUtilization(cardio){
-		console.log("hi from parse");
+		// data used to draw the cardio chart
+		let data = [];
+
+		// x axis categories
+		let xCategories = [];
+		cardio.forEach((util)=> {
+			data.push(util.utilization);
+			
+			// get equipment names, to be displayed in xAxis of cardio chart
+			// find equimpent from full equipment list, where id matches with util.equipment_id
+			let item = this.state.equipment.find((x)=>{
+				return x.id === util.equipment_id;
+			});
+			xCategories.push(item.name);
+		});
+
+		return [data, xCategories];
+
 	}
 
 	drawChart(data, categories){
@@ -93,26 +111,15 @@ class CardioChart extends Component {
  					headers: {
  						'Authorization': 'Bearer ' + token
  					},
- 					success: ((cardio)=>{
+ 					success: ((cardioData)=>{
 
  						// parse utilization from cardio data
- 						let cardioData = [];
- 						let equipNames = [];
-
- 						this.parseUtilization(cardio);
-
- 						cardio.forEach((util)=> {
- 							cardioData.push(util.utilization);
- 							
- 							// get equipment names, to be displayed in xAxis of cardio chart
- 							let item = this.state.equipment.find((x)=>{
- 								return x.id === util.equipment_id;
- 							});
- 							equipNames.push(item.name);
- 						});
+ 						let temp = this.parseUtilization(cardioData);
+						let data = temp[0]; 						
+ 						let equipNames = temp[1];
 
  						// craw CardioChart
- 						this.drawChart(cardioData, equipNames);
+ 						this.drawChart(data, equipNames);
 
 
 
