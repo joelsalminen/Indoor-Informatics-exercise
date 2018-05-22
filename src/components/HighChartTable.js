@@ -34,10 +34,11 @@ class HighChartTable extends Component{
 		return(
 			<div>
 
-				<br/><label>token:</label><br/>
+				{/*
+        <br/><label>token:</label><br/>
 				<input onChange={this.tokenInputChangeHandler}></input>
 				<button onClick={this.fetchButtonClickHandler}>Hae</button>
-				
+				*/}
 				<BicycleChart token={token}/>
 				<CardioChart token={token} />
 			</div>
