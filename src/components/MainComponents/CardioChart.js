@@ -55,7 +55,7 @@ class CardioChart extends Component {
 		// x axis categories
 		let xCategories = [];
 		cardio.forEach((util)=> {
-			data.push(util.utilization);
+			data.push(100* util.utilization);
 			
 			// get equipment names, to be displayed in xAxis of cardio chart
 			// find equimpent from full equipment list, where id matches with util.equipment_id
@@ -75,7 +75,7 @@ class CardioChart extends Component {
 		new Highcharts.Chart({
       colors: ["#f7a35c"],
       chart: {
-        type: 'line',
+        type: 'bar',
         renderTo: 'cardiochart'
       },
       title: {
@@ -95,7 +95,7 @@ class CardioChart extends Component {
 
       series: [
       	{
-			    name: 'Polkypyörä (pysty) käyttöaste',
+			    name: 'Aerobisten laitteiden käyttöaste viikolla 18',
 			    data: data
 			  }, 
 
