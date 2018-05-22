@@ -51,9 +51,8 @@ class HighChartTable extends Component{
  				categories.forEach((cat)=>{
  					url = url + cat + ',';
  				});
- 				// remove final comma to avoid errors
+ 				// remove final comma from url to avoid errors
  				url = url.substring(0, url.length -1);
- 				//console.log(url);
 
  				// fetch cardio data
  				$.ajax({
