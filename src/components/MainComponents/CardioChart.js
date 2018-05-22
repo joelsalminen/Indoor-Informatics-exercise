@@ -6,10 +6,15 @@ class CardioChart extends Component {
 	constructor(props){
 		super(props)
 
-		this.parseUtilization = this.parseUtilization;
+		this.createUrl = this.createUrl.bind(this)
+		this.parseUtilization = this.parseUtilization.bind(this);
 		this.drawChart = this.drawChart.bind(this);
 	}
 
+	// creates an url that is used to fetch cardio data
+	createUrl(categories){
+		console.log("url");
+	}
 
 	// parses utilization data into an array and finds categories of xAxis based on equipment ids
 	parseUtilization(cardio){
@@ -94,6 +99,8 @@ class CardioChart extends Component {
  					}
  				});
 
+
+ 				this.createUrl(categories);
  				// base of url for Cardio util fetch
  				let url = 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-30T00:00:00.000000Z&endDatetime=2018-05-07T00:00:00.000000Z&groupBy=timePart,equipment_id&timePart=week&metric=utilization&category_id=';
 
@@ -118,7 +125,7 @@ class CardioChart extends Component {
 						let data = temp[0]; 						
  						let equipNames = temp[1];
 
- 						// craw CardioChart
+ 						// draw CardioChart
  						this.drawChart(data, equipNames);
 
 
