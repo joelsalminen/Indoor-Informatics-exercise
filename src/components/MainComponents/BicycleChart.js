@@ -3,6 +3,43 @@ import Highcharts from 'highcharts';
 import $ from 'jquery'
 
 class BicycleChart extends Component{
+	constructor(props){
+		super(props);
+
+		this.drawChart = this.drawChart.bind(this);
+	}
+
+	drawChart(data, categories){
+		new Highcharts.Chart({
+          colors: ["#000080"],
+          chart: {
+              type: 'line',
+              renderTo: 'bicyclechart'
+          },
+          title: {
+        		text: ''
+    			},
+          yAxis: {
+          	title: {
+          		text: "Käyttöaste-%"
+          	},
+          	labels: {
+          		format: '{value}%'
+          	}
+          },
+          xAxis: {
+          	categories: categories
+          },
+          series: [
+          	{
+					    name: 'Polkypyörä (pysty) käyttöaste',
+					    data: data
+					  }, 
+
+          ]
+  			});
+	}
+
 
 	componentDidMount(){
 		const token = this.props.token;
@@ -32,34 +69,8 @@ class BicycleChart extends Component{
   			});
   			
   			// create a new chart
-  			new Highcharts.Chart({
-          colors: ["#000080"],
-          chart: {
-              type: 'line',
-              renderTo: 'bicyclechart'
-          },
-          title: {
-        		text: ''
-    			},
-          yAxis: {
-          	title: {
-          		text: "Käyttöaste-%"
-          	},
-          	labels: {
-          		format: '{value}%'
-          	}
-          },
-          xAxis: {
-          	categories: dates
-          },
-          series: [
-          	{
-					    name: 'Polkypyörä (pysty) käyttöaste',
-					    data: bicycleData
-					  }, 
-
-          ]
-  			});
+  			this.drawChart(bicycleData, dates);
+  			
   		},
 
 
