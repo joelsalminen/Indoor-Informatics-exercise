@@ -105,11 +105,9 @@ class CardioChart extends Component {
 
 
 	componentDidMount(){
-		// fetch all equipment data from backend
+		// fetch equipment data from backend
 		const token = this.props.token;
  		$.ajax({
-
-
  			url: 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/equipment',
  			method: 'get',
  			headers: {
@@ -118,6 +116,8 @@ class CardioChart extends Component {
  			success: ((data)=>{
  				// set equipment data to a state
  				this.setState({equipment: data});
+
+ 				// Find category_ids that have a specific category_parent_id
  				let categories = this.findCategoryIds(3);
  				
 
@@ -140,20 +140,11 @@ class CardioChart extends Component {
 
  						// draw CardioChart
  						this.drawChart(data, equipNames);
-
-
-
  					}),
+ 					
  					error: ((err)=>{console.log(err)})
  				});
 
-
-
-
-
-
-
- 				
  			}),
  			error: (err => {console.log(err)})
  		});
@@ -161,7 +152,7 @@ class CardioChart extends Component {
 
 	render(){
 		return(
-			<p> Hello from CardioChart</p>
+			<div id="cardiochart"></div>
 		);
 
 	}
