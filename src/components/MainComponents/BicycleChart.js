@@ -6,9 +6,25 @@ class BicycleChart extends Component{
 	constructor(props){
 		super(props);
 
+		this.parseUtilization = this.parseUtilization.bind(this);
 		this.drawChart = this.drawChart.bind(this);
 	}
 
+
+
+	parseUtilization(util){
+		let data = [];
+		let categories = [];
+
+		util.forEach((item) => {
+			// values are multiplied by 100 to get percentage value
+			data.push(100* item.utilization);
+			categories.push(item.timePart);
+		});
+		return [data, categories];
+	}
+
+	// Draw a chart for bicycle utilization
 	drawChart(data, categories){
 		new Highcharts.Chart({
           colors: ["#000080"],
@@ -52,24 +68,17 @@ class BicycleChart extends Component{
   		method: 'get', 
 
   		// on success: set up a chart
-  		success: (res) => {
-  			this.setState({bicycleUtilization: res});
-  			
+  		success: (utilization) => {
+
+  			let temp = this.parseUtilization(utilization);
   			// bicycle utilization data, used when creating a chart
-  			let bicycleData = [];
-
+  			let data = temp[0];
   			// date data for xAxis of the chart
-  			let dates = [];
+  			let categories = temp[1];
 
-
-  			this.state.bicycleUtilization.forEach((item) => {
-  				// values are multiplied by 100 to get percentage value
-  				bicycleData.push(100* item.utilization);
-  				dates.push(item.timePart);
-  			});
   			
   			// create a new chart
-  			this.drawChart(bicycleData, dates);
+  			this.drawChart(data, categories);
   			
   		},
 
