@@ -20,21 +20,14 @@ class HighChartTable extends Component{
 
 
 
- 	componentDidMount(){
-
- 	}
-
-
   // Input field for state: token
   tokenInputChangeHandler(evt){
   	this.setState({token: evt.target.value})
   }
 
-  // button functionality, fetches data from api
+  // button functionality 
   fetchButtonClickHandler(evt){
   	
-
-
   }
 
 	render(){

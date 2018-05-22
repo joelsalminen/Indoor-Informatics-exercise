@@ -11,7 +11,7 @@ class BicycleChart extends Component{
 	}
 
 
-
+	// parse data for a chart
 	parseUtilization(util){
 		let data = [];
 		let categories = [];
@@ -70,7 +70,9 @@ class BicycleChart extends Component{
   		// on success: set up a chart
   		success: (utilization) => {
 
+  			// parse utilization data into an array
   			let temp = this.parseUtilization(utilization);
+
   			// bicycle utilization data, used when creating a chart
   			let data = temp[0];
   			// date data for xAxis of the chart
@@ -95,3 +97,5 @@ class BicycleChart extends Component{
 }
 
 export default BicycleChart;
+
+// Joel Salminen - joel.salminen@gmail.com
