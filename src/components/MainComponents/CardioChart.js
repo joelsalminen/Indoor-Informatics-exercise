@@ -13,7 +13,16 @@ class CardioChart extends Component {
 
 	// creates an url that is used to fetch cardio data
 	createUrl(categories){
-		console.log("url");
+		// base of url for Cardio util fetch
+		let url = 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-30T00:00:00.000000Z&endDatetime=2018-05-07T00:00:00.000000Z&groupBy=timePart,equipment_id&timePart=week&metric=utilization&category_id=';
+
+		// adding categories in the end of url:
+		categories.forEach((cat)=>{
+			url = url + cat + ',';
+		});
+		// remove final comma from url to avoid errors
+		url = url.substring(0, url.length -1);
+		return url;
 	}
 
 	// parses utilization data into an array and finds categories of xAxis based on equipment ids
@@ -100,16 +109,8 @@ class CardioChart extends Component {
  				});
 
 
- 				this.createUrl(categories);
- 				// base of url for Cardio util fetch
- 				let url = 'https://bubvn4vsm7.execute-api.eu-west-1.amazonaws.com/dev/utilization?startDatetime=2018-04-30T00:00:00.000000Z&endDatetime=2018-05-07T00:00:00.000000Z&groupBy=timePart,equipment_id&timePart=week&metric=utilization&category_id=';
-
- 				// adding categories in the end of url:
- 				categories.forEach((cat)=>{
- 					url = url + cat + ',';
- 				});
- 				// remove final comma from url to avoid errors
- 				url = url.substring(0, url.length -1);
+ 				let url = this.createUrl(categories);
+ 				
 
  				// fetch cardio data
  				$.ajax({
