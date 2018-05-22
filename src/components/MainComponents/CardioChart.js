@@ -11,8 +11,36 @@ class CardioChart extends Component {
 
 
 
-	DrawChart(){
-		console.log("drawchart");
+	DrawChart(data, categories){
+		new Highcharts.Chart({
+		          colors: ["#f7a35c"],
+		          chart: {
+		              type: 'line',
+		              renderTo: 'cardiochart'
+		          },
+		          title: {
+		        		text: ''
+		    			},
+		          yAxis: {
+		          	title: {
+		          		text: "Cardio-laitteiden käyttöaste-%"
+		          	},
+		          	labels: {
+		          		format: '{value}%'
+		          	}
+		          },
+		          xAxis: {
+          			categories: categories
+          		},
+
+		          series: [
+		          	{
+							    name: 'Polkypyörä (pysty) käyttöaste',
+							    data: data
+							  }, 
+
+		          ]
+		  			});
 	}
 
 
@@ -77,36 +105,8 @@ class CardioChart extends Component {
  							equipNames.push(item.name);
  						});
 
- 						new Highcharts.Chart({
-		          colors: ["#f7a35c"],
-		          chart: {
-		              type: 'line',
-		              renderTo: 'cardiochart'
-		          },
-		          title: {
-		        		text: ''
-		    			},
-		          yAxis: {
-		          	title: {
-		          		text: "Cardio-laitteiden käyttöaste-%"
-		          	},
-		          	labels: {
-		          		format: '{value}%'
-		          	}
-		          },
-		          xAxis: {
-          			categories: equipNames
-          		},
-
-		          series: [
-		          	{
-							    name: 'Polkypyörä (pysty) käyttöaste',
-							    data: cardioData
-							  }, 
-
-		          ]
-		  			});
- 						this.DrawChart();
+ 						
+ 						this.DrawChart(cardioData, equipNames);
 
 
 
